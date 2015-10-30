@@ -1,0 +1,70 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Genuine - UI Templates</title>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="cleartype" content="on">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/styles/screen.css">
+
+  <!-- Deferred stylesheet loading -->
+  <script>
+    !function(a){"use strict";a.loadCSS=function(b,c,d){var f,e=a.document.createElement("link");if(c)f=c;else if(a.document.querySelectorAll){var g=a.document.querySelectorAll("style,link[rel=stylesheet],script");f=g[g.length-1]}else f=a.document.getElementsByTagName("script")[0];var h=a.document.styleSheets;return e.rel="stylesheet",e.href=b,e.media="only x",f.parentNode.insertBefore(e,c?f:f.nextSibling),e.onloadcssdefined=function(a){for(var b,c=0;c<h.length;c++)h[c].href&&h[c].href===e.href&&(b=!0);b?a():setTimeout(function(){e.onloadcssdefined(a)})},e.onloadcssdefined(function(){e.media=d||"all"}),e}}(this);
+    loadCSS( "/styles/screen.css" );
+  </script>
+  <noscript><link href="/styles/screen.css" rel="stylesheet"></noscript>
+
+  <!-- Deferred font loading -->
+  <script src="/scripts/libs/fontfaceobserver.js"></script>
+  <script>
+    var inputLight = new FontFaceObserver("Input", {
+      weight: 300
+    });
+    Promise.all([
+      inputLight.check(),
+    ]).then(function() {
+      document.body.className += " fonts-loaded";
+    });
+  </script>
+
+  <script src="/scripts/libs/modernizr.js"></script>
+
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="styles/css/ie8.css" />
+  <![endif]-->
+
+</head>
+
+
+<body>
+
+  <header class="outer-wraper global-header">
+    <section class="inner-wrapper">
+      <h1>Team Battery Status</h1>
+    </section>
+  </header>
+
+  <section class="outer-wrapper">
+    <section class="inner-wrapper" id="app">
+    </section>
+  </section>
+
+  <!-- Global script includes -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/scripts/app.js"></script>
+
+</body>
+
+</html>

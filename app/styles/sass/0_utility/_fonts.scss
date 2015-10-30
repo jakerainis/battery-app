@@ -1,0 +1,26 @@
+// ========================================================================= //
+//  Web Fonts
+//
+//
+//  FOR REFERENCE: Font-weights by numeric value / name.
+//  Side note: it is recommended that we to use the numeric value here to help clarify exactly which weight is getting referenced to.
+//    100 = thin
+//    200 = extra-light
+//    300 = light
+//    400 = normal, book
+//    500 = medium
+//    600 = demi-bold / semi-bold
+//    700 = bold
+//    800 = heavy / extra-bold / heavy
+//    900 = black / extra-black / ultra-black
+//
+// ========================================================================= //
+
+
+
+// Include Web Fonts
+@include font-face('Input', font-files('/fonts/InputSans-Light.woff', '/fonts/InputSans-Light.woff2'), '/fonts/InputSans-Light.eot', 300, normal);
+
+// Font Stacks
+$fallbackSans: Helvetica, Arial, sans-serif;
+$sans: 'Input', $fallbackSans;

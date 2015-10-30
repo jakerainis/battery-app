@@ -1,0 +1,64 @@
+{
+  "name": "GenuineInit",
+  "version": "3.0.0",
+  "description": "Genuine's front-end starting point",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:genuine/init.git"
+  },
+  "browser": {
+    "customSelect": "./app/scripts/libs/jquery.customSelect.js"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.0.3",
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "browser-sync": "^2.9.10",
+    "del": "^2.0.2",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-changed": "^1.3.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-cssshrink": "^0.1.5",
+    "gulp-filter": "^3.0.1",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-include": "^2.0.2",
+    "gulp-jsbeautifier": "^1.0.1",
+    "gulp-modify": "^0.1.1",
+    "gulp-plumber": "^1.0.1",
+    "gulp-postcss": "^6.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-template": "^3.0.0",
+    "gulp-tinypng": "^1.0.2",
+    "gulp-tinypng-compress": "^1.1.8",
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "imagemin-gifsicle": "^4.2.0",
+    "imagemin-mozjpeg": "^5.1.0",
+    "imagemin-pngquant": "^4.2.0",
+    "imagemin-svgo": "^4.1.2",
+    "napa": "^2.0.1",
+    "penthouse": "^0.3.7-alpha.3",
+    "require-dir": "^0.3.0",
+    "socket.io": "^1.3.7",
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0",
+    "yargs": "^3.26.0"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "jquery": "^2.1.4",
+    "jsx-loader": "^0.13.2",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "scripts": {
+    "install": "napa"
+  },
+  "napa": {}
+}
