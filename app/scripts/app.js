@@ -1,15 +1,14 @@
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var AddUserFormView = require('./components/addUser');
-var UserView = require('./components/user');
+//View components
+const AddUserFormView = require('./components/addUser');
+const UserView = require('./components/user');
 
-var App = React.createClass({
-
+const App = React.createClass({
   render(){
-
     return(
       <div>
         <UserView/>
@@ -19,4 +18,5 @@ var App = React.createClass({
   }
 });
 
+//Render to DOM
 ReactDOM.render(<App/>, document.getElementById('app'));

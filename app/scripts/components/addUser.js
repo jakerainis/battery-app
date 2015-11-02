@@ -1,18 +1,27 @@
 'use strict';
 
-var React = require('react');
-var UserActions = require('../actions/userActions');
-var socket = io();
-var util = require('../util');
-var assign = require('object-assign');
+const React = require('react');
+const UserActions = require('../actions/userActions');
+const socket = io();
+const util = require('../util');
+const assign = require('object-assign');
+var guid = '';
 
+//Unauthenticate a user. NOTE: Needs to live outside of virtual DOM.
+window.onunload = () => {
+  socket.emit('userQuit', {
+    id: guid
+  });
+};
 
-var AddUser = React.createClass({
+const AddUser = React.createClass({
+
   addListeners(){
     navigator.getBattery().then((battery) => {
 
-      var guid = this.state.id
-      battery.addEventListener('chargingchange', function() {
+      guid = this.state.id;
+
+      battery.addEventListener('chargingchange', () => {
         socket.emit('userChanged', {
           id: guid,
           type: 'charging',
@@ -20,7 +29,7 @@ var AddUser = React.createClass({
         });
       });
 
-      battery.addEventListener('levelchange', function() {
+      battery.addEventListener('levelchange', () => {
         socket.emit('userChanged', {
           id: guid,
           type: 'level',
@@ -28,7 +37,7 @@ var AddUser = React.createClass({
         });
       });
 
-      battery.addEventListener('chargingtimechange', function() {
+      battery.addEventListener('chargingtimechange', () => {
         socket.emit('userChanged', {
           id: guid,
           type: 'chargingTime',
@@ -36,7 +45,7 @@ var AddUser = React.createClass({
         });
       });
 
-      battery.addEventListener('dischargingtimechange', function() {
+      battery.addEventListener('dischargingtimechange', () => {
         socket.emit('userChanged', {
           id: guid,
           type: 'dischargingTime',
@@ -44,16 +53,12 @@ var AddUser = React.createClass({
         });
       });
     });
-    window.onunload = function() {
-      socket.emit('userQuit', {
-        id: guid
-      });
-    };
   },
   constructUser(batteryObj){
     let user = this.refs.user.value;
     let id = util.generateGUID();
     let battery = batteryObj;
+
     return {
       user, id, battery
     };
@@ -67,21 +72,35 @@ var AddUser = React.createClass({
     };
   },
   handleFormChange(){
+    //Sets a temporary user state prior to submit
     this.setState(this.constructUser(null));
   },
   handleSubmit(e){
     e.preventDefault();
+    //Get battery API
     navigator.getBattery().then((battery) => {
+
+      //Set it to a synchronous object
       let promObj = {
         charging: battery.charging,
         chargingTime: Infinity,
         dischargingTime: battery.dischargingTime,
         level: battery.level
-      }
+      };
+
+      //Construct user with the object data
       let user = this.constructUser(promObj);
+
+      //Update user's state
       this.setState(user);
+
+      //Tell socket.io a new user joined
       socket.emit('userJoined', user);
+
+      //Bind listeners to the user (get battery API ipdates)
       this.addListeners();
+
+      //Hide the form
       this.setState({formVisible: 'hidden'});
     });
   },

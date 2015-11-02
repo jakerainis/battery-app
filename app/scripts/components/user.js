@@ -1,15 +1,16 @@
 'use strict';
 
-var React = require('react');
-var UserStore = require('../stores/userStore');
+const React = require('react');
+const UserStore = require('../stores/userStore');
 
-var getAllUsers = ()=> {
+//Reusable function to get all users
+const getAllUsers = ()=> {
     return {
       users: UserStore.getAll()
     };
 };
 
-var User = React.createClass({
+const User = React.createClass({
   componentWillMount() {
       UserStore.addChangeListener(this.onStoreChange);
   },
@@ -25,8 +26,18 @@ var User = React.createClass({
   render(){
     var users = this.state.users.map((user)=>{
       var meterColor = '';
+      var name = user.user;
       var timer = '';
 
+      //Change Ryan's name
+      if(/RYAN/.test(user.user.toUpperCase())){
+        name = 'White Ryan';
+      }
+      if(/COATES/.test(user.user.toUpperCase())){
+        name = 'White Ryan';
+      }
+
+      //Set appropriate meter color based on battery level
       if(user.battery.level * 100 >= 75){
         meterColor = 'green';
       } else if (user.battery.level * 100 < 75 && user.battery.level * 100 >= 50){
@@ -37,6 +48,7 @@ var User = React.createClass({
         meterColor = 'red';
       }
 
+      //Display appropriate stats
       if(user.battery.charging){
         if(user.battery.chargingTime){
           timer = `~${user.battery.chargingTime/60} minutes until fully charged.`;
@@ -49,9 +61,9 @@ var User = React.createClass({
       return (
         <li key={user.id} data-id={user.id}>
           <div className="meter-wrapper">
-            <div className={meterColor + ' meter-wrapper__bar'} style={{width: user.battery.level*100+'%'}}></div>
+            <div className={`${meterColor}  meter-wrapper__bar`} style={{width: `${user.battery.level*100}%`}}></div>
             <div className="meter-wrapper__content">
-              <h2>{user.user}: {user.battery.charging ? 'Plugged In at ' + user.battery.level*100 + '%' : 'Unplugged At ' + user.battery.level*100+'%'}</h2>
+              <h2>{name}: {user.battery.charging ? `Plugged In at ${user.battery.level*100}%` : `Unplugged At ${user.battery.level*100}%`}</h2>
               <p>{timer}</p>
             </div>
           </div>

@@ -1,14 +1,16 @@
+/*global io*/
 'use strict';
 
-var assign = require('object-assign');
-var Dispatcher = require('../dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var socket = io();
+const assign = require('object-assign');
+const Dispatcher = require('../dispatcher');
+const EventEmitter = require('events').EventEmitter;
+const socket = io();
 
+//Persisting array of users
 var USERS = [];
 
-
-var userStore = assign({}, EventEmitter.prototype, {
+//User store methods
+const userStore = assign({}, EventEmitter.prototype, {
     addChangeListener: function (callback) {
         this.on('change', callback);
     },
@@ -20,23 +22,23 @@ var userStore = assign({}, EventEmitter.prototype, {
     }
 });
 
-userStore.dispatchToken = Dispatcher.register(function (payload) {
-  // Dispatcher.waitFor([
-  //   OtherStore.dispatchToken,
-  //   AndAnotherStore.dispatchToken
-  // ]);
-  var actions = {
-      addUser: function (payload) {
-          USERS.push(payload.action);
-          userStore.emit('change');
-      }
-  };
+//View actions and store dependencies would live here if we weren't using socket.io
+// userStore.dispatchToken = Dispatcher.register((payload) => {
+//   Dispatcher.waitFor([
+//     OtherStore.dispatchToken,
+//     AndAnotherStore.dispatchToken
+//   ]);
+//   var actions = {
+//       addUser: function (payload) {
+//           USERS.push(payload.action);
+//           userStore.emit('change');
+//       }
+//   };
+//   actions[payload.action.type] && actions[payload.action.type](payload);
+// });
 
-  actions[payload.action.type] && actions[payload.action.type](payload);
-
-});
-
-socket.on('usersUpdated', (data)=>{
+//Emit a change whenever users get updated
+socket.on('usersUpdated', (data) => {
   USERS = data;
   userStore.emit('change');
 });
